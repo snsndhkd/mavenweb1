@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+<context:component-scan base-package="controller,data,board.dao"/>
+<mvc:annotation-driven/>
+<context:annotation-config/> <!-- autowired 사용시 필요함 -->
+<bean name="/index" class="controller.IndexController"/>
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="order" value="2" />
+					<property name="prefix" value="/WEB-INF/" />
+					<property name="suffix" value=".jsp" />
+</bean>
+<!-- webapp에 index.html파일은 스프링 dispatcher에서 접근 불가
+스프링 dispatcher에서는 jsp파일만 webapp에서 접근 가능
+하지만 아래 mvc:resources를 사용하면 접근 가능 -->
+<mvc:resources location="/static/" mapping="/**"/>
+
+</beans>
